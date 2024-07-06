@@ -1,0 +1,128 @@
+.faq {
+    background-color: rgba(255, 246, 230, 0.53);
+    background-image: url('../images/dist/beige-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: rgba(255, 246, 230, 0.53);
+        z-index: -1;
+    }
+
+
+    &__title {
+        color: $brown;
+        text-align: center;
+        font-size: 42px;
+        text-transform: uppercase;
+        @include adaptiveValue("margin-bottom", 50, 20);
+
+        @media (max-width: 1200px) {
+            font-size: 38px;
+        }
+
+        @media (max-width: 992px) {
+            font-size: 34px;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 30px;
+        }
+
+        @media (max-width: 576px) {
+            font-size: 26px;
+        }
+    }
+
+    &__accordion {
+        user-select: none;
+        position: relative;
+        padding-right: 10px;
+        @include adaptiveValue("margin-bottom", 50, 20);
+
+        @media (max-width: 768px) {
+            max-width: 100%;
+        }
+
+        @media (max-width: 576px) {
+            padding-right: 0;
+        }
+    }
+
+    &__item {
+        padding: 20px 0px;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(33, 36, 61, 0.2);
+    }
+
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__subtitle {
+        font-size: 24px;
+        padding-right: 15px;
+
+        @media (max-width: 576px) {
+            font-size: 22px;
+        }
+    }
+
+    &__box {
+        user-select: none;
+        position: relative;
+        padding-right: 10px;
+        width: 14px;
+        height: 14px;
+
+        &::before,
+        &::after {
+            height: 14px;
+            width: 2px;
+            content: '';
+            position: absolute;
+            margin: auto;
+            background-color: $black;
+            transition: all 2s;
+
+            @media (max-width: 576px) {
+                height: 18px;
+            }
+        }
+
+        &::before {
+            transform: rotate(270deg);
+        }
+
+        &::after {
+            transform: rotate(180deg);
+        }
+    }
+
+    .active .faq__box:after {
+        transform: rotate(90deg);
+    }
+
+    &__text {
+        color: $gray;
+        @include line-height(18, 28, px, );
+    }
+
+    &__link-modal {
+        margin: 0 auto;
+        max-width: 200px;
+        display: table;
+        padding: 16px 30px;
+    }
+}

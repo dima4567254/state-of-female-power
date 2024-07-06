@@ -1,0 +1,214 @@
+$maxWidthContainer: 1200;
+// $maxWidth:1920;
+$containerWidth: 1100;
+$minWidth: 320; //ставить что бы считало минимальное до этого
+// $keepSize:0;
+// $maxWidth:0;
+// @include adaptiv-value( "padding" 50, 20, 0, );
+
+// Адаптивное свойство (clamp)
+@mixin adaptiveValue($property, $startSize, $minSize, $widthFrom: $containerWidth, $widthTo: $minWidth, $keepSize: 0) {
+  @if ($startSize==0) {
+    $startSize: 0.000001;
+  }
+
+  @if ($minSize==0) {
+    $minSize: 0.000001;
+  }
+
+  // Для calc();
+  $addSize: math.div($startSize - $minSize, 16);
+
+  @if ($widthFrom==$containerWidth and $maxWidthContainer==0) {
+    $widthFrom: $maxWidth;
+  }
+
+  // Брейк-поинты в EM
+  $widthFromMedia: em($widthFrom);
+  $widthToMedia: em($widthTo);
+
+  // Формула плавающего значения
+  // Источник: https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
+  $slope: math.div(($startSize - $minSize), ($widthFrom - $widthTo));
+  $yIntersection: -$widthTo * $slope+$minSize;
+
+  @if ($yIntersection==0) {
+    $yIntersection: 0.000001;
+  }
+
+  $flyValue: #{rem($yIntersection)}" + "#{$slope * 100}vw;
+
+  // Получение значения свойства
+  $propertyValue: #{"clamp(" rem($minSize) "," $flyValue "," rem($startSize) ")"};
+
+  // Если отрицательные значения
+  @if ($minSize > $startSize) {
+    $propertyValue: #{"clamp(" rem($startSize) "," $flyValue "," rem($minSize) ")"};
+  }
+
+  // Если поддерживается clamp();
+  @supports (#{$property}: $propertyValue) {
+    #{$property}: $propertyValue;
+  }
+
+  // Если не поддерживается clamp();
+  @supports not (#{$property}: $propertyValue) {
+    #{$property}: calc(#{rem($minSize)} + #{$addSize} * (100vw - #{rem($widthTo)}) / #{math.div($widthFrom, 16) - math.div($widthTo, 16)});
+  }
+
+  // Устанавливаем значения по умолчанию
+  @if $widthFrom !=$containerWidth and $widthFrom !=$maxWidth and $keepSize !=1 and $keepSize !=2 {
+    @media (min-width: $widthFromMedia) {
+      #{$property}: inherit;
+    }
+  }
+
+  @if $widthTo !=$minWidth and $keepSize !=1 and $keepSize !=3 {
+    @media (max-width: $widthToMedia) {
+      #{$property}: inherit;
+    }
+  }
+}
+
+//Percent
+@function percent($px, $from) {
+  $result: math.div($px, $from) * 100%;
+  @return $result;
+}
+
+//REM
+@function rem($px) {
+  $result: math.div($px, 10) + rem;
+  @return $result;
+}
+
+//EM
+@function em($px, $current: 16) {
+  $result: math.div($px, $current) + em;
+  @return $result;
+}
+
+@mixin line-height($font-size, $line-height, ) {
+
+  line-height: ($line-height / $font-size)
+}
+
+// ---------------------
+// Миксин для адаптивных свойств с выводом в консоль
+@mixin adaptive-property($property, $maxValue, $minValue) {
+  $parts: divide-into-parts($maxValue, $minValue);
+
+  #{$property}: nth($parts, 1); // Начальное значение
+  @debug '#{$property}: #{nth($parts, 1)}';
+
+  @media (max-width: 992px) {
+    #{$property}: nth($parts, 2); // Значение для 992px и меньше
+  }
+
+  @debug '#{$property}992px: #{nth($parts, 2)}';
+
+  @media (max-width: 768px) {
+    #{$property}: nth($parts, 3); // Значение для 768px и меньше
+  }
+
+  @debug '#{$property}768px: #{nth($parts, 3)}';
+
+  @media (max-width: 576px) {
+    #{$property}: nth($parts, 4); // Минимальное значение для 576px и меньше
+  }
+
+  @debug '#{$property}576px: #{nth($parts, 4)}';
+}
+
+// Пример использования миксина для padding-top
+// .header {
+//   // @include adaptive-property(padding-top, 110px, 40px);
+//   // @include adaptive-property(padding-top, 100px, 40px);
+// }
+
+// i adaptive-property как вызвать снипед
+// ---------------------------------------------
+
+// @mixin line-height($font-size, $line-height, $px, ) {
+//     line-height: ($line-height / $font-size);
+//     font-size: ($font-size + $px);
+// }
+
+// ----------------
+// вроде работает но просто макс ширена выглядил лучше
+// переводит значение в процент
+// @mixin percent-width2($width, ) {
+//     max-width: ($width / 1200)* 100%
+// }
+// -----------------
+
+// @include percent-width2(470);
+
+// @mixin line-clamp-box($line-clamp, ) {
+//     display: -webkit-box;
+//     -webkit-line-clamp: $line-clamp;
+//     -webkit-box-orient: vertical;
+//     overflow: hidden;
+// }
+
+// @mixin line-clamp-inline($line-clamp, ) {
+//     display: -webkit-inline-flex;
+//     -webkit-line-clamp: $line-clamp;
+//     -webkit-box-orient: vertical;
+//     overflow: hidden;
+// }
+
+// @mixin line-clamp-one($max-width, ) {
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     display: block;
+//     max-width: $max-width;
+// }
+
+// @mixin line-clamp($line-clamp, ) {
+//     display: -webkit-box;
+//     -webkit-line-clamp: $line-clamp;
+//     -webkit-box-orient: vertical;
+//     overflow: hidden;
+
+// }
+
+// @mixin line-height($font-size, $line-height, ) {
+//     line-height: ($line-height / $font-size)
+// }
+
+// @mixin clamp($font-size,
+//     $line-height,
+//     $lines-to-show) {
+//     // display: block; // Fallback for non-webkit browsers
+//     display: -webkit-box;
+//     font-size: rem($font-size);
+//     max-height: rem(($font-size * $line-height * $lines-to-show)); // Fallback for non-webkit browsers
+//     line-height: $line-height;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     -webkit-box-orient: vertical;
+//     -webkit-line-clamp: $lines-to-show;
+// }
+
+
+
+
+/*
+@include clamp(5);
+*/
+
+// $browser-context: 16;
+
+// @function em($pixels, $context: $browser-context) {
+//   @if (unitless($pixels)) {
+//     $pixels: $pixels * 1px;
+//   }
+
+//   @if (unitless($context)) {
+//     $context: $context * 1px;
+//   }
+
+//   @return $pixels / $context * 1em;
+// }

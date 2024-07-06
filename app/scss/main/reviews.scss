@@ -1,0 +1,79 @@
+.reviews {
+    background: $white2;
+
+    &__title {
+        color: $brown;
+        @include adaptiveValue("margin-bottom", 30, 20);
+        font-size: 36px;
+        text-align: center;
+
+        @media (max-width: 1200px) {
+            font-size: 33px;
+        }
+
+        @media (max-width: 992px) {
+            font-size: 31px;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 28px;
+        }
+
+        @media (max-width: 576px) {
+            font-size: 26px;
+        }
+    }
+
+    &__items {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        @media (max-width: 768px) {
+            justify-content: center;
+        }
+    }
+
+    &__item {
+        background-color: $white;
+        padding: 40px 30px;
+        width: 570px;
+        height: 445px;
+        text-align: center;
+
+        @media (max-width: 1200px) {
+            width: 470px;
+            height: auto;
+            padding: 35px 27px;
+        }
+
+        @media (max-width: 992px) {
+            padding: 0;
+            width: 350px;
+        }
+    }
+
+    &__name {
+        font-weight: 700;
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+    &__text {
+        font-size: 15px;
+        color: $gray2;
+    }
+
+    &__btn {
+        @include adaptiveValue("padding-bottom", 18, 10);
+        @include adaptiveValue("padding-top", 18, 10);
+        @include adaptiveValue("padding-left", 30, 10);
+        @include adaptiveValue("padding-right", 30, 10);
+    }
+
+    &__video {
+        margin-bottom: 20px;
+        height: 280px;
+    }
+}

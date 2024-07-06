@@ -1,0 +1,285 @@
+body.lock {
+    overflow: hidden;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    backdrop-filter: blur(4rem);
+    opacity: 0;
+    z-index: 300;
+    visibility: hidden;
+
+    &.open {
+        opacity: 1;
+        visibility: visible;
+
+        .modal__inner {
+            transform: perspective(600px) translate(0, 0) rotateX(0);
+        }
+    }
+
+    &__inner {
+        margin-top: 10%;
+        margin-bottom: 10%;
+        background-image: url('../images/dist/paper-bg.jpeg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        max-width: 770px;
+        padding: 30px 100px 80px 100px;
+        z-index: 1;
+        transition: all .8s ease 0s;
+        transform: perspective(600px) translate(0, -100%) rotateX(45deg);
+
+        @media (max-width: 1200px) {
+            padding: 30px 80px;
+        }
+
+        @media (max-width: 992px) {
+            padding: 30px 60px;
+        }
+
+        @media (max-width: 768px) {
+            padding: 30px 40px;
+        }
+
+        @media (max-width: 576px) {
+            padding: 20px;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: -1;
+        }
+    }
+
+    &__btn {
+        position: absolute;
+        top: 1%;
+        right: 5%;
+
+        @media (max-width: 576px) {
+            right: 10%;
+        }
+    }
+
+    &__button {
+        background-color: transparent;
+        border: none;
+        width: 25px;
+        height: 25px;
+        position: relative;
+        padding: 0;
+        z-index: 10;
+
+        span,
+        &::before,
+        &::after {
+            height: 2px;
+            width: 100%;
+            background-color: $black;
+        }
+
+        &::before,
+        &::after {
+            position: absolute;
+            content: '';
+        }
+
+        &::before {
+            content: '';
+            transform: rotate(45deg);
+            top: 65%;
+        }
+
+        &::after {
+            transform: rotate(-45deg);
+            bottom: 6px;
+        }
+    }
+
+    &__title {
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 43px;
+        text-align: center;
+        margin-bottom: 65px;
+        @include adaptiveValue("margin-bottom", 65, 20);
+        color: $black2;
+
+        @media (max-width: 1200px) {
+            font-size: 29px;
+        }
+
+        @media (max-width: 992px) {
+            font-size: 28px;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 27px;
+        }
+
+        @media (max-width: 576px) {
+            font-size: 26px;
+        }
+    }
+}
+
+.form {
+    max-width: 485px;
+
+    &__inner {
+        margin-bottom: 20px;
+    }
+
+    &__box {
+        display: block;
+
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+    }
+
+    &__label {
+        color: $gray;
+        line-height: 28px;
+        display: block;
+
+        &:not(:last-child) {
+            margin-bottom: 15px;
+        }
+
+        &--radio,
+        &--checkbox {
+            display: inline-block;
+
+            &:focus {
+                color: $focus;
+            }
+
+            &:hover {
+
+                .form__radio,
+                .form__checkbox {
+                    border: 2px solid $gray;
+                }
+            }
+
+            &:active {
+                color: $active;
+            }
+        }
+    }
+
+    &__input {
+        margin-bottom: 20px;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.29);
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        display: block;
+        background-color: rgba(33, 36, 61, 0.07);
+        width: 480px;
+        padding: 13px 20px 13px 20px;
+
+        @media (max-width: 576px) {
+            width: 100%;
+        }
+    }
+
+    &__radio,
+    &__checkbox {
+        border: 2px solid rgba(93, 94, 106, 0.54);
+    }
+
+    &__text {
+        color: $gray;
+        line-height: 28px;
+        margin-bottom: 15px;
+    }
+
+    &__btn {
+        color: $white;
+        width: 100%;
+        font-weight: 700;
+        font-size: 16px;
+        background-color: $green2;
+        border: none;
+        padding: 15px 26px;
+        @include adaptiveValue("padding-left", 26, 20);
+        @include adaptiveValue("padding-right", 26, 20);
+        transition: background-color .5s,
+            color .5s;
+
+        &:focus {
+            color: $focus;
+        }
+
+        &:hover {
+            background-color: $black3;
+        }
+
+        &:active {
+            color: $active;
+        }
+    }
+}
+
+// Стили радио кнопок 
+.jq-radio.checked .jq-radio__div {
+    margin: 2px 0 0 2px;
+}
+
+.jq-radio .form__radio {
+    color: $gray;
+}
+
+.jq-radio {
+    border: 2px solid rgba(93, 94, 106, 0.54);
+    transition: color .5s,
+        border .5s;
+
+    &:focus {
+        color: $focus;
+    }
+
+    &:hover {
+        border: 2px solid $gray;
+    }
+
+    &:active {
+        color: $active;
+    }
+
+}
+
+.jq-radio.checked {
+    border: 2px solid $gray;
+}
+
+.jq-radio.checked .jq-radio__div {
+    background: $gray;
+    width: 8px;
+    height: 8px;
+}
+
+.jq-radio .form__radio {
+    color: $gray;
+}

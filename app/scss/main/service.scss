@@ -1,0 +1,134 @@
+.service {
+    background-image: url('../images/dist/archive-bg.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 1200px) {
+        height: 100%;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: block;
+        background-color: rgba(21, 9, 3, 0.91);
+        z-index: -1;
+    }
+
+    &__box {
+        display: flex;
+        @include adaptiveValue("margin-bottom", 40, 20);
+
+    }
+
+    &__title {
+        color: $brown2;
+        font-size: 42px;
+        position: relative;
+        display: inline-block;
+        margin: 0 auto;
+        @include adaptiveValue("padding-left", 50, 20);
+        @include adaptiveValue("padding-right", 50, 20);
+
+        @media (max-width: 1200px) {
+            font-size: 38px;
+        }
+
+        @media (max-width: 992px) {
+            font-size: 34px;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 30px;
+        }
+
+        @media (max-width: 576px) {
+            font-size: 26px;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 2px;
+            width: 100%;
+            background-color: $gray3;
+        }
+    }
+
+    &__items {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px 0;
+
+        @media (max-width: 576px) {
+            gap: 30px 0;
+        }
+    }
+
+    &__item {
+        width: 50%;
+        max-width: 470px;
+
+        @media (max-width: 1200px) {
+            width: 45%;
+        }
+
+        @media (max-width: 768px) {
+            width: 100%;
+        }
+    }
+
+    &__subtitle {
+        color: $brown3;
+        @include line-height(30, 39, px, );
+        @include adaptiveValue("margin-bottom", 30, 20);
+
+        @media (max-width: 1200px) {
+            font-size: 28px;
+        }
+
+        @media (max-width: 992px) {
+            font-size: 26px;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 24px;
+        }
+
+        @media (max-width: 576px) {
+            font-size: 22px;
+        }
+    }
+
+    &__text {
+        @include line-height(20, 32, px, );
+        color: rgba(255, 255, 255, 0.7);
+
+        @media (max-width: 1200px) {
+            font-size: 19px;
+        }
+
+        @media (max-width: 992px) {
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 17px;
+        }
+
+        @media (max-width: 576px) {
+            font-size: 16px;
+        }
+    }
+}

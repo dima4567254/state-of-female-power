@@ -1,0 +1,82 @@
+.footer {
+    background-image: url('../images/dist/paper-bg.jpeg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        display: block;
+        background: rgba(255, 255, 255, 0.75);
+        z-index: -1;
+    }
+
+    &__city {
+        color: $black2;
+        font-size: 28px;
+        font-weight: 700;
+        @include adaptiveValue("margin-bottom", 40, 20);
+
+        @media (max-width: 576px) {
+            font-size: 26px;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+        @include adaptiveValue("margin-bottom", 45, 20);
+
+        @media (max-width: 768px) {
+            display: block;
+        }
+    }
+
+    &__link {
+        font-size: 22px;
+        text-decoration: revert;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    &__text {
+        color: $brown;
+        font-size: 16px;
+        @include adaptiveValue("margin-bottom", 30, 20);
+    }
+
+    &__link,
+    &__red {
+        transition: color .5s;
+
+        &:focus {
+            color: $focus;
+        }
+
+        &:hover {
+            color: $ac;
+        }
+
+        &:active {
+            color: $active;
+        }
+    }
+
+    &__copy {
+        color: $brown;
+        text-align: center;
+
+        @media (max-width: 768px) {
+            text-align: start;
+        }
+    }
+}

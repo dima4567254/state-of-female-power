@@ -1,0 +1,138 @@
+.guarantees {
+    &__box {
+        display: flex;
+        justify-content: center;
+        @include adaptiveValue("margin-bottom", 80, 20);
+    }
+
+    &__title {
+        color: $brown;
+        font-size: 42px;
+        position: relative;
+        display: inline-block;
+        margin: 0 auto;
+        text-align: center;
+        @include adaptiveValue("padding-left", 100, 20);
+        @include adaptiveValue("padding-right", 100, 20);
+
+        @media (max-width: 1200px) {
+            font-size: 38px;
+        }
+
+        @media (max-width: 992px) {
+            font-size: 34px;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 30px;
+        }
+
+        @media (max-width: 576px) {
+            font-size: 26px;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: -30%;
+            right: 0;
+            height: 2px;
+            width: 100%;
+            background-color: rgba(33, 36, 61, 0.5);
+
+            @media (max-width: 576px) {
+                bottom: -10%;
+            }
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 40px;
+
+        @media (max-width: 1200px) {
+            gap: 20px;
+        }
+
+        @media (max-width: 992px) {
+            display: block;
+        }
+    }
+
+    &__item {
+        padding: 40px 30px;
+        background-color: $brown5;
+        border-radius: 6px;
+        gap: 15px;
+        display: flex;
+        min-height: 100%;
+        max-width: 565px;
+        flex: 0 0 48%;
+
+        @media (max-width: 1200px) {
+            padding: 30px;
+        }
+
+        @media (max-width: 992px) {
+            padding: 25px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            padding: 20px;
+        }
+
+        @media (max-width: 576px) {
+            display: block;
+        }
+
+        &--honesty {
+            background-color: $black3;
+        }
+    }
+
+    &__icon {
+        background-color: $black3;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 0 0 100px;
+
+        @media (max-width: 576px) {
+            margin-bottom: 20px;
+        }
+
+        &--honesty {
+            background-color: $brown5;
+        }
+    }
+
+    &__wrap {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__subtitle {
+        margin-bottom: 10px;
+        font-size: 24px;
+
+        &--honesty {
+            color: $white;
+        }
+    }
+
+    &__text {
+        color: $gray;
+        @include line-height(18, 28, px, );
+
+        &--honesty {
+            color: $blue2;
+        }
+    }
+}
